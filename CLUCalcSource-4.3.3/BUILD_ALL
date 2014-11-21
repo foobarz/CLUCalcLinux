@@ -1,0 +1,28 @@
+#!/bin/sh
+
+source ./ENV
+
+
+cd ${CLUDEVIL_SOURCE}
+./configure --prefix=${DEVIL_HOME}
+make install
+sed 's|(ILvoid)|(void)|g' -i ${DEVIL_HOME}/include/IL/*.h
+
+cd ${CLUFLTK_SOURCE}
+mkdir -p lib
+./configure --prefix=${FLTK_HOME}
+mkdir ${FLTK_HOME}
+cp ${CLUFLTK_SOURCE}/fltk-config ${FLTK_HOME}/.
+make install
+make
+
+cd ${CLULIBS_SOURCE}
+./configure --prefix=${CLU_HOME}
+make install
+
+cd ${CLUCALC_SOURCE}
+./configure --prefix=${CLU_HOME}
+make install
+
+
+
